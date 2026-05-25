@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gestão de Agências</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+    </head>
+    <body>
+        <div class="dados">
+            <img src="{{ url_for('static', filename='images/Agency.jpg')}}" alt="agências" width="200" height="200">
+            
+            <h1>Agência</h1>
+            <br>
+            <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/?option=edit'" class="button1">Editar</button>
+            <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/?option=delete'" class="button1">Apagar</button>
+            <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/?option=insert'" class="button1">Inserir</button>
+            <button id="save" type="submit" form="form" {{butedit}} class="button1">Guardar</button>
+            <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/?option=cancel'" class="button1">Cancelar</button>
+            <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/?option=exit'" class="button1">Sair</button>
+            <br><br>
+            
+            <form id="form" action="/?option=save" method="post">
+                <label for="id">Id:</label>
+                {% if butedit == 'enabled' %}
+                    <input type="text" disabled id="id" name="id" value="{{id}}" size="5"/>
+                {%else%}
+                    <input type="text" {{butedit}} id="id" name="id" value="{{id}}" size="10"/>
+                {%endif%}
+                <br><br>
+                
+                <label for="name">Nome:</label>
+                <input type="text" {{butedit}} id="name" name="name" value="{{name}}" size="30"/>
+            </form>
+            <br><br>
+            
+            <button id="first" type="button" {{butshow}} onclick="window.location.href = '/?option=first'" class="button1">Primeiro</button>
+            <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/?option=previous'" class="button1">Anterior</button>
+            <button id="next" type="button" {{butshow}} onclick="window.location.href = '/?option=next'" class="button1">Seguinte</button>
+            <button id="last" type="button" {{butshow}} onclick="window.location.href = '/?option=last'" class="button1">Último</button>
+        </div>
+    </body>
+</html>

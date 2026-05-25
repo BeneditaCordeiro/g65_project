@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dados">
+    <h2>{{cl_header}}: {{obj[cl.att[1]]}}</h2>
+    
+    <div class="navigation">
+        <button onclick="window.location.href = '/subform/{{cname}}?option=first'">Primeiro</button>
+        <button onclick="window.location.href = '/subform/{{cname}}?option=previous'">Anterior</button>
+        <button onclick="window.location.href = '/subform/{{cname}}?option=next'">Próximo</button>
+        <button onclick="window.location.href = '/subform/{{cname}}?option=last'">Último</button>
+    </div>
+
+    <hr>
+    <h3>{{sbl_header}} Associados</h3>
+    
+    <table class="subtable">
+        <thead>
+            <tr>
+                {% for h in headers %}
+                    <th>{{h}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in objl %}
+            <tr>
+                {% for i in range(1, len(sbl.att)) %}
+                    <td>{{ getattr(line, sbl.att[i]) }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            
+            <form action="/subform/{{cname}}?option=save" method="post">
+                <tr>
+                    <td>Novo:</td>
+                    {% for i in range(2, len(sbl.att)) %}
+                        <td><input type="text" name="{{sbl.att[i]}}" required></td>
+                    {% endfor %}
+                    <td><button type="submit">Adicionar</button></td>
+                </tr>
+            </form>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

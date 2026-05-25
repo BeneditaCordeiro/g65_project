@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dados">
+    <h1>Gestão de {{cl.header}}</h1>
+    <br>
+    <div class="toolbar">
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=edit'" class="button1">Editar</button>
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=delete'" class="button1">Apagar</button>
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=insert'" class="button1">Inserir</button>
+        <button id="save" type="submit" form="form" {{butedit}} class="button1">Guardar</button>
+        <button {{butedit}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=cancel'" class="button1">Cancelar</button>
+    </div>
+    
+    <br>
+    <form id="form" action="/gform/{{cl.__name__}}?option=save" method="post">
+        {% for i in range(len(cl.att)) %}
+            <div class="field">
+                <label for="{{cl.att[i]}}">{{cl.des[i]}}:</label>
+                <input type="text" 
+                       {% if i == 0 or butedit == 'disabled' %} readonly class="readonly" {% endif %}
+                       id="{{cl.att[i]}}" 
+                       name="{{cl.att[i]}}" 
+                       value="{{obj[cl.att[i]]}}">
+            </div>
+            <br>
+        {% endfor %}
+    </form>
+    
+    <br>
+    <div class="navigation">
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=first'" class="button1">|<<</button>
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=previous'" class="button1"><</button>
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=next'" class="button1">></button>
+        <button {{butshow}} onclick="window.location.href = '/gform/{{cl.__name__}}?option=last'" class="button1">>>|</button>
+    </div>
+</div>
+{% endblock %}
