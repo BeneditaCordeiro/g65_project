@@ -16,7 +16,7 @@ class Transaction(Gclass):
     sortkey = ''
     # Os atributos que o professor pediu: As duas chaves estrangeiras + Data + Valor
     att = ['_id', '_agency_id', '_project_id', '_payment_date', '_amount']
-    header = 'Transação/Pagamento'
+    header = 'Transaction'
     des = ['Id', 'Id_Agência', 'Id_Projeto', 'Data_Pagamento', 'Valor']
     
     def __init__(self, id, agency_id, project_id, payment_date, amount):

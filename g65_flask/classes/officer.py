@@ -13,13 +13,13 @@ class Officer(Gclass):
     pos = 0
     sortkey = ''
     att = ['_id','_role','_agency_id']
-    header = 'Trabalhador'
+    header = 'Officer'
     des = ['Id','Cargo','Agência_id']
     
     def __init__(self, id, role, agency_id):
         super().__init__()
         # O SEGURANÇA: Só deixa criar o Officer se a Agência já existir!
-        if agency_id in Agency.lst:
+        if int(agency_id) in Agency.lst:
             id = Officer.get_id(id)
             self._id = id
             self._role = role
@@ -27,6 +27,7 @@ class Officer(Gclass):
             
             Officer.obj[id] = self
             Officer.lst.append(id)
+            print('Agência', agency_id, 'encontrada.')
         else:
             print('Agência', agency_id, 'não encontrada. Não foi possível criar o Trabalhador.')
 

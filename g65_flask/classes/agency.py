@@ -7,7 +7,7 @@ class Agency(Gclass):
     pos = 0
     sortkey = ''
     att = ['_id','_name']
-    header = 'Agência'
+    header = 'Agency'
     des = ['Id','Nome']
     
     def __init__(self, id, name):

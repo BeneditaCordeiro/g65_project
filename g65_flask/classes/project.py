@@ -14,7 +14,7 @@ class Project(Gclass):
     sortkey = ''
     # Repara: Retirei o agency_id daqui! O projeto é independente.
     att = ['_id','_name','_category','_started_date']
-    header = 'Projeto'
+    header = 'Project'
     des = ['Id','Nome','Categoria','Data Início']
     
     def __init__(self, id, name, category, started_date):
