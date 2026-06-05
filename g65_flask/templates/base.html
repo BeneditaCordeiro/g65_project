@@ -3,31 +3,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistema de Gestão - Projeto</title>
+    <title>Gestao de Agencias - Grupo 5</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
-    {% block title %}{% endblock %}
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 </head>
 <body>
-    <nav>
-        <ul class="menu">
-            {% if ulogin == None %}
-                <li><a class="button" href="/login">Login</a></li>
-            {% else %}
-                <li><a class="button" href="/logoff">Sair</a></li>
-                <li><a class="button" href="/gform/Agency">Agências</a></li>
-                <li><a class="button" href="/gform/Project">Projetos</a></li>
-                
-                <li><a class="button" href="/subform/Agency_Officer?option=''">Trabalhadores/Agência</a></li>
-                <li><a class="button" href="/subform/Agency_Transaction?option=''">Pagamentos/Agência</a></li>
-                
-                <li><a class="button" href="/Userlogin">Utilizadores</a></li>
-                <li><a class="button" style="color:lightblue">Utilizador: {{ulogin}}</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+<nav>
+    <ul class="menu">
+        {% if ulogin == None %}
+            <li><a class="button" href="/login">Login</a></li>
+        {% else %}
+            <li><a class="button" href="/logoff">Sair</a></li>
+            <li><a class="button" href="/">Início</a></li>
+            <li><a class="button" href="/dashboard">Dashboard</a></li>
+            <li><a class="button" href="/gform/Agency">Agências</a></li>
+            <li><a class="button" href="/gform/Project">Projetos</a></li>
+            <li><a class="button" href="/subform/Agency_Officer?option=''">Trabalhadores</a></li>
+            <li><a class="button" href="/subform/Agency_Transaction?option=''">Transações</a></li>
+            <li><a class="button" href="/Userlogin">Utilizadores</a></li>
+            <li class="user-label">{{ ulogin }}</li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>

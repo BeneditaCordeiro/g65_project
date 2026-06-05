@@ -1,87 +1,73 @@
 from flask import Flask, render_template, request, session
-import os
+import sys, os
 
-app = Flask(__name__)
-app.secret_key = 'CHAVE_SECRETA_DO_GRUPO'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+os.chdir(BASE_DIR)
 
-# --- CORREÇÃO DE CAMINHO ---
-# Isto obriga o Python a encontrar a base de dados na mesma pasta deste ficheiro app.py
-base_dir = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(base_dir, 'data\\projeto_grupo5.db')
+from datafile import filename
 
-# 1. IMPORTAR AS TUAS CLASSES
 from classes.agency import Agency
 from classes.officer import Officer
 from classes.project import Project
 from classes.transaction import Transaction
 from classes.userlogin import Userlogin
 
-# 2. IMPORTAR AS APPS DA PASTA SUBS
 from subs.apps_gform import apps_gform
 from subs.apps_subform import apps_subform
 from subs.apps_userlogin import apps_userlogin
+from subs.apps_dashboard import apps_dashboard
 
-# 3. LER OS DADOS (Agora com o db_path seguro)
-# Se o ficheiro não existir, o .read() do professor cria os objetos vazios em memória
-Agency.read(db_path)
-Officer.read(db_path)
-Project.read(db_path)
-Transaction.read(db_path)
-#Userlogin.read(db_path)
+app = Flask(__name__)
+app.secret_key = 'CHAVE_SECRETA_GRUPO5'
 
-# --- ROTA PRINCIPAL ---
-@app.route("/", methods=["POST", "GET"])
+Agency.read(filename + 'projeto_grupo5.db')
+Officer.read(filename + 'projeto_grupo5.db')
+Project.read(filename + 'projeto_grupo5.db')
+Transaction.read(filename + 'projeto_grupo5.db')
+Userlogin.read(filename + 'projeto_grupo5.db')
+
+@app.route("/")
 def index():
-    ulogin = session.get("user")
-    return render_template("index.html", ulogin=ulogin)
+    return render_template("index.html", ulogin=session.get("user"))
 
-# --- FORMULÁRIOS GFORM ---
-@app.route("/agency", methods=["POST", "GET"])
-def agency():
-    return apps_gform("Agency")
+@app.route("/login")
+def login():
+    return render_template("login.html", user="", password="",
+                           ulogin=session.get("user"), resul="")
 
-@app.route("/project", methods=["POST", "GET"])
-def project():
-    return apps_gform("Project")
+@app.route("/logoff")
+def logoff():
+    session.pop("user", None)
+    return render_template("index.html", ulogin=session.get("user"))
 
-# --- FORMULÁRIOS SUBFORM ---
-@app.route("/agency_officer", methods=["POST", "GET"])
-def agency_officer():
-    return apps_subform("Agency_Officer")
+@app.route("/chklogin", methods=["post", "get"])
+def chklogin():
+    user     = request.form["user"]
+    password = request.form["password"]
+    resul    = Userlogin.chk_password(user, password)
+    if resul == "Valid":
+        session["user"] = user
+        return render_template("index.html", ulogin=session.get("user"))
+    return render_template("login.html", user=user, password=password,
+                           ulogin=session.get("user"), resul=resul)
 
-@app.route("/project_transaction", methods=["POST", "GET"])
-def project_transaction():
-    return apps_subform("Project_Transaction")
+@app.route("/dashboard")
+def dashboard():
+    return apps_dashboard()
 
-# --- GESTÃO DE UTILIZADORES ---
-@app.route("/userlogin", methods=["POST", "GET"])
+@app.route("/gform/<cname>", methods=["post", "get"])
+def gform(cname):
+    return apps_gform(cname)
+
+@app.route("/subform/<cname>", methods=["post", "get"])
+def subform(cname):
+    return apps_subform(cname)
+
+@app.route("/Userlogin", methods=["post", "get"])
 def userlogin():
     return apps_userlogin()
 
-# --- LOGIN / LOGOUT ---
-@app.route("/login", methods=["POST", "GET"])
-def login():
-    message = ""
-    if request.method == "POST":
-        user = request.form.get("user")
-        password = request.form.get("password")
-        
-        res = Userlogin.chk_password(user, password)
-        if res == "Valid": 
-            session["user"] = user
-            return render_template("index.html", ulogin=user)
-        else:
-            message = res # Ex: "Wrong password" ou "No existent user"
-            
-    return render_template("login.html", message=message, ulogin=session.get("user"))
-
-@app.route("/logout")
-def logout():
-    session.pop("user", None)
-    return render_template("index.html", ulogin=None)
-
-if __name__ == "__main__":
-    # use_reloader=False é CRUCIAL para não dar SystemExit no Spyder
+if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
-
-    
