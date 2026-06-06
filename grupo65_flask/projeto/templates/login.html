@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display:flex;justify-content:center;padding-top:60px;">
+    <div class="card" style="width:100%;max-width:360px;">
+        <div class="page-title">
+            <h1>Login</h1>
+        </div>
+        <form id="form" action="/chklogin" method="post">
+            <div class="field">
+                <label for="user">Utilizador</label>
+                <input type="text" id="user" name="user" value="{{user}}" autocomplete="username"/>
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password"/>
+            </div>
+            <br>
+            <button type="submit" class="button1" style="width:100%;padding:9px;">Entrar</button>
+        </form>
+        {% if resul %}
+            <p class="error" style="margin-top:12px;">{{ resul }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width:460px;margin:0 auto;">
+    <div class="page-title">
+        <img src="{{ url_for('static', filename='images/Userlogin.jpg')}}" alt="utilizadores">
+        <h1>Utilizadores</h1>
+    </div>
+
+    <div class="btn-row">
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=edit'" class="button1">Editar</button>
+        {% if group == "admin" %}
+            <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=delete'" class="button1 btn-danger">Apagar</button>
+            <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=insert'" class="button1 btn-secondary">Inserir</button>
+        {% endif %}
+        <button type="submit" form="form" {{butedit}} class="button1">Guardar</button>
+        <button type="button" {{butedit}} onclick="window.location.href='/Userlogin?option=cancel'" class="button1 btn-secondary">Cancelar</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=exit'" class="button1 btn-secondary">Sair</button>
+    </div>
+
+    <form id="form" action="/Userlogin?option=save" method="post">
+        <div class="field">
+            <label for="id">Id</label>
+            <input type="text" disabled id="id" name="id" value="{{id}}" size="4"/>
+        </div>
+        <div class="field">
+            <label for="user">Utilizador</label>
+            {% if group == "admin" %}
+                <input type="text" {{butedit}} id="user" name="user" value="{{user}}"/>
+            {% else %}
+                <input type="text" disabled id="user" name="user" value="{{user}}"/>
+            {% endif %}
+        </div>
+        <div class="field">
+            <label for="usergroup">Grupo</label>
+            {% if group == "admin" %}
+                <input type="text" {{butedit}} id="usergroup" name="usergroup" value="{{usergroup}}"/>
+            {% else %}
+                <input type="text" disabled id="usergroup" name="usergroup" value="{{usergroup}}"/>
+            {% endif %}
+        </div>
+        <div class="field">
+            <label for="password">Password <span style="color:#bbb;font-weight:400;">(deixar em branco para nao alterar)</span></label>
+            <input type="password" {{butedit}} id="password" name="password"/>
+        </div>
+    </form>
+
+    {% if group == "admin" %}
+    <div class="nav-row">
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=first'" class="button1 btn-secondary">|&lt;&lt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=previous'" class="button1 btn-secondary">&lt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=next'" class="button1 btn-secondary">&gt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/Userlogin?option=last'" class="button1 btn-secondary">&gt;&gt;|</button>
+    </div>
+    {% endif %}
+
+    {% if msg %}<p class="error" style="margin-top:14px;">{{ msg }}</p>{% endif %}
+</div>
+{% endblock %}

@@ -77,7 +77,7 @@ class Gclass:
     def remove(cls, p):
         obj = cls.obj[p]
         id = cls.att[0][1:]
-        command = f'DELETE FROM {cls.__name__} WHERE {id}={cls.conv(obj,id,p)}'
+        command = f'DELETE FROM "{cls.__name__}" WHERE {id}={cls.conv(obj,id,p)}'
         cls.sqlexe(command)
         cls.lst.remove(p)
         del cls.obj[p]
@@ -85,7 +85,7 @@ class Gclass:
     @classmethod
     def insert(cls, p):
         obj = cls.obj[p]
-        command = f'INSERT INTO {cls.__name__} VALUES('
+        command = f'INSERT INTO "{cls.__name__}" VALUES('
         for att in cls.att:
             value = getattr(obj, att)
             command += f'{cls.conv(obj, att, value)},'
@@ -155,7 +155,7 @@ class Gclass:
         try:
             fh = open(path, 'r')
             fh.close()
-            lista = cls.sqlexe("select * from " + cls.__name__)
+            lista = cls.sqlexe('select * from "' + cls.__name__ + '"')
             if lista != None:
                 for r in lista:
                     objstr = f'{r[0]}'

@@ -1,20 +1,20 @@
-
-from flask import Flask, render_template, request, session
+from flask import render_template, request, session
 from classes.userlogin import Userlogin
 
 prev_option = ""
 
 def apps_userlogin():
     global prev_option
-    ulogin=session.get("user")
+    ulogin = session.get("user")
     user_id = Userlogin.get_user_id(ulogin)
-    if (ulogin != None):
+    if ulogin is not None:
         group = Userlogin.obj[user_id].usergroup
         if group != "admin":
             Userlogin.current(user_id)
         butshow = "enabled"
         butedit = "disabled"
         option = request.args.get("option")
+
         if option == "edit":
             butshow = "disabled"
             butedit = "enabled"
@@ -29,7 +29,7 @@ def apps_userlogin():
         elif option == 'cancel':
             pass
         elif prev_option == 'insert' and option == 'save':
-            obj = Userlogin(0,request.form["user"],request.form["usergroup"], \
+            obj = Userlogin(0, request.form["user"], request.form["usergroup"],
                             Userlogin.set_password(request.form["password"]))
             Userlogin.insert(obj.id)
             Userlogin.last()
@@ -50,18 +50,25 @@ def apps_userlogin():
             Userlogin.last()
         elif option == 'exit':
             return render_template("index.html", ulogin=session.get("user"))
+
         prev_option = option
         obj = Userlogin.current()
+
         if option == 'insert' or len(Userlogin.lst) == 0:
-            user = ""
+            uid      = 0
+            user     = ""
             usergroup = ""
             password = ""
         else:
-            user = obj.user
+            uid       = obj.id
+            user      = obj.user
             usergroup = obj.usergroup
-            password = ""
-        return render_template("userlogin.html", butshow=butshow, butedit=butedit, user=user,usergroup = usergroup,password=password, ulogin=session.get("user"), group=group)
+            password  = ""
+
+        return render_template("userlogin.html",
+                               butshow=butshow, butedit=butedit,
+                               id=uid, user=user, usergroup=usergroup,
+                               password=password,
+                               ulogin=session.get("user"), group=group)
     else:
         return render_template("index.html", ulogin=ulogin)
-# -*- coding: utf-8 -*-
-

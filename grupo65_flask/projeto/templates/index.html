@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="welcome">
+    <h1>Sistema de Gestão de Agências</h1>
+    {% if ulogin == None %}
+        <p>Faca <a href="/login" style="color:#1a2e4a;">login</a> para continuar.</p>
+    {% else %}
+        <p>Bem-vinda/o, {{ ulogin }}. Utilize o menu para navegar.</p>
+        <br><br>
+        <a href="/dashboard" class="button1" style="font-size:13px;padding:10px 24px;text-decoration:none;">Ver Dashboard</a>
+    {% endif %}
+</div>
+{% endblock %}

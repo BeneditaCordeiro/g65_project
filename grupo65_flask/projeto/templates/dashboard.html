@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 style="font-size:18px;font-weight:600;color:#1a2e4a;margin-bottom:24px;">Dashboard</h1>
+
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-value">{{kpis.agencias}}</div>
+        <div class="kpi-label">Agências</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">{{kpis.projetos}}</div>
+        <div class="kpi-label">Projetos</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">{{kpis.transacoes}}</div>
+        <div class="kpi-label">Transações</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">{{kpis.officers}}</div>
+        <div class="kpi-label">Trabalhadores</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value" style="font-size:16px;">{{kpis.total_pago}}</div>
+        <div class="kpi-label">Total Transacionado</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value" style="font-size:16px;">{{kpis.media_transacao}}</div>
+        <div class="kpi-label">Media por Transação</div>
+    </div>
+</div>
+
+<div class="chart-box">
+    <div id="chart1"></div>
+</div>
+<div class="chart-grid">
+    <div class="chart-box">
+        <div id="chart2"></div>
+    </div>
+    <div class="chart-box">
+        <div id="chart3"></div>
+    </div>
+</div>
+
+<script>
+var L = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor:  'rgba(0,0,0,0)',
+    font: {family: 'Inter, Arial', color: '#555', size: 12},
+    margin: {l:50, r:20, t:45, b:40}
+};
+function render(id, c) {
+    Plotly.newPlot(id, c.data, Object.assign({}, c.layout, L), {responsive:true, displayModeBar:false});
+}
+render('chart1', {{ chart1 | tojson }});
+render('chart2', {{ chart2 | tojson }});
+render('chart3', {{ chart3 | tojson }});
+</script>
+{% endblock %}

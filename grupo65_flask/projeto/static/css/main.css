@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #f5f0e8;
+    color: #2c2c2c;
+    min-height: 100vh;
+    font-size: 14px;
+}
+
+/* --- Navbar --- */
+nav {
+    background-color: #1a2e4a;
+    width: 100%;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.button {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #c8d4e0;
+    padding: 14px 14px;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.3px;
+}
+
+.button:hover { color: #fff; }
+
+.user-label {
+    margin-left: auto;
+    font-size: 12px;
+    color: #7a92a8;
+    padding: 14px 0;
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* --- Card --- */
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+/* --- Titles --- */
+.page-title {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.page-title h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a2e4a;
+    letter-spacing: 0.5px;
+}
+
+.page-title img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+/* --- Form --- */
+label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #888;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    max-width: 340px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    background: #fff;
+    color: #2c2c2c;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #1a2e4a;
+}
+
+input[readonly], input[disabled] {
+    background: #f5f5f5;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.field { margin-bottom: 18px; }
+
+/* --- Buttons --- */
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.button1 {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 16px;
+    border: 1px solid #1a2e4a;
+    background: #1a2e4a;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    border-radius: 0;
+}
+
+.button1:hover { background: #243d5e; border-color: #243d5e; }
+.button1:disabled { background: #ccc; border-color: #ccc; color: #fff; cursor: not-allowed; }
+
+.btn-secondary {
+    background: #fff;
+    color: #1a2e4a;
+    border: 1px solid #1a2e4a;
+}
+.btn-secondary:hover { background: #f0f4f8; }
+
+.btn-danger {
+    background: #fff;
+    color: #8b2e2e;
+    border: 1px solid #8b2e2e;
+}
+.btn-danger:hover { background: #fdf5f5; }
+
+.nav-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 24px;
+}
+
+/* --- Table --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    background: #f0f4f8;
+    color: #1a2e4a;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #ddd;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    color: #2c2c2c;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafcff; }
+
+/* --- KPI grid --- */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: #ddd;
+    border: 1px solid #ddd;
+    margin-bottom: 24px;
+}
+
+.kpi-card {
+    background: #fff;
+    padding: 24px 16px;
+    text-align: center;
+}
+
+.kpi-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a2e4a;
+}
+
+.kpi-label {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Chart grid --- */
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+
+.chart-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+/* --- Welcome --- */
+.welcome {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.welcome h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a2e4a;
+    margin-bottom: 10px;
+}
+
+.welcome p { color: #888; font-size: 14px; }
+
+/* --- Error --- */
+.error { color: #8b2e2e; font-size: 13px; margin-top: 10px; }
+
+.dados { text-align: center; }

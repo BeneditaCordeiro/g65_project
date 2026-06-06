@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="page-title">
+        <img src="/static/images/{{cname}}.jpg" alt="{{cname}}"
+             onerror="this.style.display='none'">
+        <h1>{{cname}}</h1>
+    </div>
+
+    <div class="btn-row">
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=edit'" class="button1">Editar</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=delete'" class="button1 btn-danger">Apagar</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=insert'" class="button1 btn-secondary">Inserir</button>
+        <button type="submit" form="form" {{butedit}} class="button1">Guardar</button>
+        <button type="button" {{butedit}} onclick="window.location.href='/gform/{{cname}}?option=cancel'" class="button1 btn-secondary">Cancelar</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=exit'" class="button1 btn-secondary">Sair</button>
+    </div>
+
+    <form id="form" action="/gform/{{cname}}?option=save" method="post"
+          style="max-width:380px;">
+        {% for key in att %}
+            <div class="field">
+                <label for="{{key}}">{{des[loop.index-1]}}</label>
+                {% if loop.index == 1 %}
+                    <input type="text" readonly id="{{key}}" name="{{key}}" value="{{obj[key]}}" size="6"/>
+                {% else %}
+                    <input type="text" {{butedit}} id="{{key}}" name="{{key}}" value="{{obj[key]}}"/>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </form>
+
+    <div class="nav-row">
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=first'" class="button1 btn-secondary">|&lt;&lt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=previous'" class="button1 btn-secondary">&lt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=next'" class="button1 btn-secondary">&gt;</button>
+        <button type="button" {{butshow}} onclick="window.location.href='/gform/{{cname}}?option=last'" class="button1 btn-secondary">&gt;&gt;|</button>
+    </div>
+</div>
+{% endblock %}
