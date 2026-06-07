@@ -70,24 +70,26 @@
             </tr>
             {% endfor %}
 
-            {% if butshow == 'disabled' and butedit == 'disabled' %}
-            <tr style="background:#fafcff;">
-                <form id="formrow" action="/subform/{{cname}}?option=saverow" method="post">
-                    {% for key in attl %}
-                        {% if loop.index == 2 %}
-                            <td><input type="text" readonly name="{{key}}" value="{{ns.id_header}}" style="width:60px;"/></td>
-                        {% endif %}
-                        {% if loop.index > 2 %}
-                            <td><input type="text" name="{{key}}" value="" style="width:140px;"/></td>
-                        {% endif %}
-                    {% endfor %}
-                    <td style="display:flex;gap:6px;padding-top:12px;">
-                        <button type="submit" form="formrow" class="button1" style="padding:5px 12px;">Guardar</button>
-                        <button type="button" onclick="window.location.href='/subform/{{cname}}?option=cancel'" class="button1 btn-secondary" style="padding:5px 12px;">Cancelar</button>
-                    </td>
-                </form>
-            </tr>
+{% if butshow == 'disabled' and butedit == 'disabled' %}
+<tr style="background:#fafcff;">
+    <form id="formrow" action="/subform/{{cname}}?option=saverow" method="post">
+        {% for key in attl %}
+            {% if loop.index > 1 %}
+                {% if 'agency_id' in key %}
+                    <td><input type="text" name="{{key}}" value="{{ns.id_header}}" readonly style="width:60px;"/></td>
+                {% else %}
+                    <td><input type="text" name="{{key}}" value="" style="width:140px;"/></td>
+                {% endif %}
             {% endif %}
+        {% endfor %}
+        <td style="display:flex;gap:6px;padding-top:12px;">
+            <button type="submit" form="formrow" class="button1" style="padding:5px 12px;">Guardar</button>
+            <button type="button" onclick="window.location.href='/subform/{{cname}}?option=cancel'" class="button1 btn-secondary" style="padding:5px 12px;">Cancelar</button>
+        </td>
+    </form>
+</tr>
+{% endif %}
+
         </tbody>
     </table>
 </div>
